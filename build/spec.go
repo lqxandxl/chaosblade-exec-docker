@@ -28,11 +28,12 @@ import (
 
 // main creates a yaml file of the experiments in the project
 func main() {
-	//log.Println("build spec.go main:")
-	//log.Println(os.Args[0]) //第一个参数没看懂
-	//log.Println(os.Args[1]) //yaml文件所在的相对路径
 	if len(os.Args) != 2 {
 		log.Panicln("less yaml file path")
+	}
+	if len(os.Args) == 3 {
+		//要生成的docker的yaml文件的路径是os.Args[1]
+		exec.JvmSpecFileForYaml = os.Args[2]
 	}
 	err := util.CreateYamlFile(getModels(), os.Args[1])
 	if err != nil {

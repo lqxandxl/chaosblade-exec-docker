@@ -41,7 +41,9 @@ func NewDockerExpModelSpec() *dockerExpModelSpec {
 	execSidecarModelSpecs := []spec.ExpModelCommandSpec{
 		networkCommandModelSpec,
 	}
-
+	//获取jvm的相关内容
+	javaExpModelSpecs := getJvmModels()
+	//需要在容器内部执行的命令，在这里进行添加
 	execInContainerModelSpecs := []spec.ExpModelCommandSpec{
 		newProcessCommandModelSpecForDocker(),
 		newCpuCommandModelSpecForDocker(),
@@ -49,6 +51,8 @@ func NewDockerExpModelSpec() *dockerExpModelSpec {
 		newMemCommandModelSpecForDocker(),
 		newFileCommandSpecForDocker(),
 	}
+	//将jvm生成的内容添加到docker中
+	execInContainerModelSpecs = append(execInContainerModelSpecs, javaExpModelSpecs...)
 	containerSelfModelSpec := NewContainerCommandSpec()
 
 	spec.AddExecutorToModelSpec(NewNetWorkSidecarExecutor(), networkCommandModelSpec)
