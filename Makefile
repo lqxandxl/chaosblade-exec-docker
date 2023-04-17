@@ -6,6 +6,10 @@ GO_ENV=CGO_ENABLED=1
 GO_MODULE=GO111MODULE=on
 GO=env $(GO_ENV) $(GO_MODULE) go
 
+$(info ============= $(GO_ENV) =================)
+$(info ============= $(GO_MODULE) =================)
+$(info ============= $(GO) =================)
+
 UNAME := $(shell uname)
 
 ifeq ($(BLADE_VERSION), )
@@ -31,9 +35,13 @@ build_linux: build
 
 pre_build:
 	rm -rf $(BUILD_TARGET_PKG_DIR)
+# 提前将target所涉及的目录都创建好
 	mkdir -p $(BUILD_TARGET_YAML)
 
 build_yaml: build/spec.go
+	@echo "build_yaml"
+# 还原语句则是 env CGO_ENABLED=1 GO111MODULE=on go run build/spec.go target/chaosblade-1.5.0/yaml/chaosblade-docker-spec-1.5.0.yaml
+# build/spec.go 被替换到了 $<
 	$(GO) run $< $(OS_YAML_FILE_PATH)
 
 # test

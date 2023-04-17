@@ -23,11 +23,14 @@ import (
 	"github.com/chaosblade-io/chaosblade-spec-go/spec"
 	"github.com/chaosblade-io/chaosblade-spec-go/util"
 
-	"github.com/chaosblade-io/chaosblade-exec-docker/exec"
+	"github.com/lqxandxl/chaosblade-exec-docker/exec"
 )
 
 // main creates a yaml file of the experiments in the project
 func main() {
+	//log.Println("build spec.go main:")
+	//log.Println(os.Args[0]) //第一个参数没看懂
+	//log.Println(os.Args[1]) //yaml文件所在的相对路径
 	if len(os.Args) != 2 {
 		log.Panicln("less yaml file path")
 	}
