@@ -25,6 +25,9 @@ BUILD_IMAGE_PATH=build/image/blade
 OS_YAML_FILE_NAME=chaosblade-docker-spec-$(BLADE_VERSION).yaml
 OS_YAML_FILE_PATH=$(BUILD_TARGET_YAML)/$(OS_YAML_FILE_NAME)
 
+JVM_YAML_PATH=/Users/liqixin/Documents/codeup/chaosblade/chaosblade-exec-jvm/build-target/chaosblade-$(BLADE_VERSION)/yaml/chaosblade-jvm-spec-$(BLADE_VERSION).yaml
+
+
 ifeq ($(GOOS), linux)
 	GO_FLAGS=-ldflags="-linkmode external -extldflags -static"
 endif
@@ -42,7 +45,7 @@ build_yaml: build/spec.go
 	@echo "build_yaml"
 # 还原语句则是 env CGO_ENABLED=1 GO111MODULE=on go run build/spec.go target/chaosblade-1.5.0/yaml/chaosblade-docker-spec-1.5.0.yaml
 # build/spec.go 被替换到了 $<
-	$(GO) run $< $(OS_YAML_FILE_PATH)
+	$(GO) run $< $(OS_YAML_FILE_PATH) $(JVM_YAML_PATH)
 
 # test
 test:

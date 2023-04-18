@@ -28,7 +28,7 @@ import (
 
 // main creates a yaml file of the experiments in the project
 func main() {
-	if len(os.Args) != 2 {
+	if len(os.Args) < 2 {
 		log.Panicln("less yaml file path")
 	}
 	if len(os.Args) == 3 {
